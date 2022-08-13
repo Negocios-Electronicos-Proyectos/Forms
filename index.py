@@ -21,13 +21,6 @@ def news():
 @app.route('/ventas')
 def ventas():
     return render_template("ventas.html")
-# @app.route('/about')
-# def about():
-#     return "Acerca De"
-# @app.route('/news')
-# def news():
-#     return "Noticias"
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# if __name__ == '__main__':
+#     app.run(debug=True)
