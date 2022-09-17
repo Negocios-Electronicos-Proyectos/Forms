@@ -1,7 +1,10 @@
 # Creator: Adelso Guerra
-from flask import Flask, render_template
+from flask import Flask, render_template, request
+from form import Datos
 
 app = Flask(__name__)
+
+app.secret_key="123456"
 
 # Inicio
 @app.route('/')
@@ -33,16 +36,19 @@ def sales():
 def entertainment():
     return render_template("entertainment.html")
 
-# Control de Errores
-# --404
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
+# Formularios 
+@app.route('/form1')
+def form():
+    if request.method=='POST':
+        return f"nombre= { request.form['nombre']} | E-mail={ request.form ['correo']} | Telefono={ request.form ['telefono']} "
+    return render_template('form1.html')  
 
-# --500
-@app.errorhandler(500)
-def internal_server_error(e):
-    return render_template('500.html'), 500
+@app.route('/form2')
+def form2():
+    form=Datos()
+    if form.validate_on_submit():
+        return f"nombre:{ request.form['nombre']} | E-Mail={ request.form['correo']}  |  Teléfono={ request.form['telefono']}"
+    return render_template('form2.html', form=form)
 
 
 if __name__ == '__main__':
